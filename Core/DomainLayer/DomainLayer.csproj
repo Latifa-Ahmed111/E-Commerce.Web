@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Exceptions\" />
+    <Compile Remove="Contracts\**" />
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Contracts\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Contracts\**" />
+    <None Remove="Exceptions\**" />
   </ItemGroup>
 
 </Project>

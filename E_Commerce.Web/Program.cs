@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using Presistance.Data;
+
 namespace E_Commerce.Web
 {
     public class Program
@@ -13,6 +16,12 @@ namespace E_Commerce.Web
             
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<StoreDbContext>(options =>
+            {
+                var ConnectiionString = builder.Configuration.GetConnectionString("DefualtConnection");
+                options.UseSqlServer(ConnectiionString);
+
+            });
             #endregion
 
             var app = builder.Build();
