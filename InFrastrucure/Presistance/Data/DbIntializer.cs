@@ -22,7 +22,9 @@ namespace Presistance.Data
             {
                 if (!context.Set<ProductBrand>().Any())
                 {
-                    var data = await File.ReadAllTextAsync(@"..\InFrastructure\Presistance\Data\Seeds\brands.json");
+
+                    var data = await File.ReadAllTextAsync(@"..\InFrastrucure\Presistance\Data\Seeds\brands.json");
+
                     var Objects = JsonSerializer.Deserialize<List<ProductBrand>>(data);
                     if (Objects is not null)
                     {
@@ -33,7 +35,7 @@ namespace Presistance.Data
                 }
                 if (!context.Set<ProductType>().Any())
                 {
-                    var data = await File.ReadAllTextAsync(@"..\InFrastructure\Presistance\Data\Seeds\types.json");
+                    var data = await File.ReadAllTextAsync(@"..\InFrastrucure\Presistance\Data\Seeds\types.json");
                     var Objects = JsonSerializer.Deserialize<List<ProductType>>(data);
                     if (Objects is not null)
                     {
@@ -45,7 +47,8 @@ namespace Presistance.Data
 
                 if (!context.Set<Product>().Any())
                 {
-                    var data = await File.ReadAllTextAsync(@"..\InFrastructure\Presistance\Data\Seeds\products.json");
+               
+                    var data = await File.ReadAllTextAsync(@"..\InFrastrucure\Presistance\Data\Seeds\products.json");
                     var Objects = JsonSerializer.Deserialize<List<Product>>(data);
                     if (Objects is not null)
                     {

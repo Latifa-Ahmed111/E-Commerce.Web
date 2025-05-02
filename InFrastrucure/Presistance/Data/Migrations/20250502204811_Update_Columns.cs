@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Presistance.InFrastructure.Data.Migrations
+namespace Presistance.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductModule : Migration
+    public partial class Update_Columns : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,38 +45,36 @@ namespace Presistance.InFrastructure.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductBrandId = table.Column<int>(type: "int", nullable: false),
-                    BrandId = table.Column<int>(type: "int", nullable: false),
-                    ProductTypeId = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TypeId = table.Column<int>(type: "int", nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Brands_ProductBrandId",
-                        column: x => x.ProductBrandId,
+                        name: "FK_Products_Brands_BrandId",
+                        column: x => x.BrandId,
                         principalTable: "Brands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_Types_ProductTypeId",
-                        column: x => x.ProductTypeId,
+                        name: "FK_Products_Types_TypeId",
+                        column: x => x.TypeId,
                         principalTable: "Types",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductBrandId",
+                name: "IX_Products_BrandId",
                 table: "Products",
-                column: "ProductBrandId");
+                column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductTypeId",
+                name: "IX_Products_TypeId",
                 table: "Products",
-                column: "ProductTypeId");
+                column: "TypeId");
         }
 
         /// <inheritdoc />

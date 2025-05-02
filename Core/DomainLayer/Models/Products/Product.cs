@@ -15,12 +15,12 @@ namespace DomainLayer.Models.Products
 
         public string PictureUrl { get; set; } = null!;
 
-        public string Price { get; set; } = null!;
+        public decimal Price { get; set; }
 
         public int TypeId { get; set; }//fk
         public ProductBrand Brand { get; set; }
 
-        public int BrandId { get; set; }//Fk
+        public int BrandId { get; set; } 
 
         public ProductType Type { get; set; }
 

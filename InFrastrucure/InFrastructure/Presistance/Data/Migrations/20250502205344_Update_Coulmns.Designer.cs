@@ -8,11 +8,11 @@ using Presistance.Data;
 
 #nullable disable
 
-namespace Presistance.InFrastructure.Data.Migrations
+namespace Presistance.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20250502141400_ProductModule")]
-    partial class ProductModule
+    [Migration("20250502205344_Update_Coulmns")]
+    partial class Update_Coulmns
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,24 +47,17 @@ namespace Presistance.InFrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductBrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductTypeId")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductBrandId");
+                    b.HasIndex("BrandId");
 
-                    b.HasIndex("ProductTypeId");
+                    b.HasIndex("TypeId");
 
                     b.ToTable("Products");
                 });
@@ -105,21 +98,21 @@ namespace Presistance.InFrastructure.Data.Migrations
 
             modelBuilder.Entity("DomainLayer.Models.Products.Product", b =>
                 {
-                    b.HasOne("DomainLayer.Models.Products.ProductBrand", "ProductBrand")
+                    b.HasOne("DomainLayer.Models.Products.ProductBrand", "Brand")
                         .WithMany("Products")
-                        .HasForeignKey("ProductBrandId")
+                        .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DomainLayer.Models.Products.ProductType", "ProductType")
+                    b.HasOne("DomainLayer.Models.Products.ProductType", "Type")
                         .WithMany("Products")
-                        .HasForeignKey("ProductTypeId")
+                        .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductBrand");
+                    b.Navigation("Brand");
 
-                    b.Navigation("ProductType");
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("DomainLayer.Models.Products.ProductBrand", b =>
