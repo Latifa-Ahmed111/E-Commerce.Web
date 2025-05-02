@@ -1,4 +1,5 @@
 
+using DomainLayer.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Presistance.Data;
 
@@ -6,7 +7,7 @@ namespace E_Commerce.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +23,14 @@ namespace E_Commerce.Web
                 options.UseSqlServer(ConnectiionString);
 
             });
+
+            builder.Services.AddScoped<IDbIntializer, DbIntializer>();
+
             #endregion
 
             var app = builder.Build();
+
+            await intializeDbAsync(app);
 
             #region // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -41,6 +47,15 @@ namespace E_Commerce.Web
             app.MapControllers();
             #endregion 
             app.Run();
+        }
+
+
+        public static async Task intializeDbAsync(WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var dbintializer = scope.ServiceProvider.GetRequiredService<IDbIntializer>();
+            await dbintializer.IntializeAsync();
+
         }
     }
 }

@@ -17,11 +17,12 @@ namespace DomainLayer.Models.Products
 
         public string Price { get; set; } = null!;
 
-        public ProductBrand ProductBrand { get; set; }
+        public int TypeId { get; set; }//fk
+        public ProductBrand Brand { get; set; }
+
         public int BrandId { get; set; }//Fk
 
-        public ProductType ProductType { get; set; }
+        public ProductType Type { get; set; }
 
-        public int TypeId { get; set; }//fk
     }
 }
