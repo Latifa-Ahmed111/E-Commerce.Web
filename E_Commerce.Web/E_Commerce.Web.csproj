@@ -10,4 +10,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InFrastructre\Presenation\Presenation.csproj" />
+    <ProjectReference Include="..\InFrastrucure\Presistance\Presistance.csproj" />
+  </ItemGroup>
+
 </Project>
