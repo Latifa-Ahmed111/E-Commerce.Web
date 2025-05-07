@@ -39,5 +39,8 @@ namespace Presistance.Reposatories
         {
             return await SpeficationEvaluating.CreateQuery(context.Set<TEntity>(), Spec).FirstAsync();
         }
+
+        public async Task<int> CountAsync(ISpeesfication<TEntity, Tkey> Spec)
+           => await SpeficationEvaluating.CreateQuery(context.Set<TEntity>(), Spec).CountAsync();
     }
 }

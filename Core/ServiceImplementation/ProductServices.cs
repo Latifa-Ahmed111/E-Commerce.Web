@@ -3,6 +3,7 @@ using DomainLayer.Contracts;
 using DomainLayer.Models.Products;
 using Service.Spesfications;
 using ServiceAbstraction;
+using Shared;
 using Shared.Dtos;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,25 @@ namespace Service
 {
     internal class ProductServices(IUnitOfWork unitOfWork,IMapper mapper) : IProductService
     {
+
+        public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParam productQuery)
+        {
+            var _Reposatory = unitOfWork.GetReposatory<Product, int>();
+            var spec = new ProductWithBrandandTypeSpesfication(productQuery);
+            var Products = await _Reposatory.GetAllAsync(spec);
+            var MapperProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
+
+            var productcount = Products.Count();
+
+            var CountSpesfication = new ProuductCountSpesfication(productQuery);
+            var TotalCount = await _Reposatory.CountAsync(CountSpesfication);
+            return new PaginatedResult<ProductDto>(productQuery.PageIndex, productcount, TotalCount, MapperProducts);
+        }
+
+
+
+
+
         public async Task<IEnumerable<BrandDto>> GetAllBrandsAsync()
         {
             var _Reposatory = unitOfWork.GetReposatory<ProductBrand, int>();
@@ -23,15 +43,7 @@ namespace Service
             return MapperBrands;
         }
 
-        public  async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
-        {
-            var _Reposatory = unitOfWork.GetReposatory<Product, int>();
-            var spec = new ProductWithBrandandTypeSpesfication();
-            var Products = await _Reposatory.GetAllAsync(spec);
-            var MapperProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
-
-            return MapperProducts;
-        }
+        
 
         public async Task<IEnumerable<TypeDto>> GetAllTypesAsync()
         {
@@ -44,7 +56,9 @@ namespace Service
 
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
-            var Product =  await unitOfWork.GetReposatory<Product, int>().GetByIdAsync(id);
+            var Spec = new ProductWithBrandandTypeSpesfication(id);
+
+            var Product =  await unitOfWork.GetReposatory<Product, int>().GetByIdAsync(Spec);
 
             return mapper.Map<Product,ProductDto>(Product);
         }
