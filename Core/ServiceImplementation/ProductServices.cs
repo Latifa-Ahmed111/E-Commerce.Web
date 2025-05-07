@@ -3,6 +3,7 @@ using DomainLayer.Contracts;
 using DomainLayer.Models.Products;
 using Service.Spesfications;
 using ServiceAbstraction;
+using Shared;
 using Shared.Dtos;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,10 @@ namespace Service
             return MapperBrands;
         }
 
-        public  async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? BrandId ,int? TypeId)
+        public  async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? BrandId ,int? TypeId, ProductSortingOptions sortingOptions)
         {
             var _Reposatory = unitOfWork.GetReposatory<Product, int>();
-            var spec = new ProductWithBrandandTypeSpesfication(BrandId, TypeId);
+            var spec = new ProductWithBrandandTypeSpesfication(BrandId, TypeId, sortingOptions);
             var Products = await _Reposatory.GetAllAsync(spec);
             var MapperProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
 

@@ -22,8 +22,18 @@ namespace Presistance
 
                 Query = Query.Where(spec.Criteria);
             }
+            if(spec.orderby is not null)
+            {
+                Query=Query.OrderBy(spec.orderby);
 
-            if(spec.includeExpression is not null&&spec.includeExpression.Count>0)
+            }
+            if (spec.orderbyDes is not null)
+            {
+                Query = Query.OrderByDescending(spec.orderbyDes);
+
+            }
+
+            if (spec.includeExpression is not null&&spec.includeExpression.Count>0)
             {
                 Query = spec.includeExpression.Aggregate(Query,(currentQuerty,Exp)=> currentQuerty.Include(Exp));
 
