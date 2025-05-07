@@ -30,8 +30,14 @@ namespace Presistance.Reposatories
         public void Delete(TEntity entity)
         => context.Set<TEntity>().Remove(entity);
 
+        public async Task<IEnumerable<TEntity>> GetAllAsync(ISpeesfication<TEntity, Tkey> Spec)
+        {
+            return  await SpeficationEvaluating.CreateQuery(context.Set<TEntity>(), Spec).ToListAsync();
+        }
 
-
-
+        public async Task<TEntity> GetByIdAsync(ISpeesfication<TEntity, Tkey> Spec)
+        {
+            return await SpeficationEvaluating.CreateQuery(context.Set<TEntity>(), Spec).FirstAsync();
+        }
     }
 }
