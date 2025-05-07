@@ -12,7 +12,9 @@ namespace DomainLayer.Contracts
 
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(Tkey id);
-
+        void Add(TEntity entity);
+        void Update(TEntity entity);
+        void Delete(TEntity entity);
 
     }
 }
