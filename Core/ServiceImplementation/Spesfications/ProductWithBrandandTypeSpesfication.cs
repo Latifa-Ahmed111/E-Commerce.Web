@@ -13,14 +13,14 @@ namespace Service.Spesfications
     public class ProductWithBrandandTypeSpesfication : BaseSpesfication<Product,int>
     {
 
-        public ProductWithBrandandTypeSpesfication(int?BrandId,int? TypeId, ProductSortingOptions sortingoptions) :
-            base(p=>(!BrandId.HasValue |p.BrandId==BrandId )&&(!TypeId.HasValue | p.TypeId == TypeId))
+        public ProductWithBrandandTypeSpesfication(ProductQueryParam productQuery) :
+            base(p=>(!productQuery.BrandId.HasValue |p.BrandId== productQuery.BrandId) &&(!productQuery.TypeId.HasValue | p.TypeId == productQuery.TypeId))
         {
 
             AddInclude(p =>p.Brand);
             AddInclude(p => p.Type);
 
-            switch(sortingoptions)
+            switch(productQuery.SortingOptions)
             {
                 case ProductSortingOptions.NameAsc:
                     AddorderBy(p => p.Name);

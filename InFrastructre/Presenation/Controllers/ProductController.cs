@@ -17,10 +17,10 @@ namespace Presenation.Controllers
         //GetallProduct 
         [HttpGet]
         //GetUrl/api/Products
-        public async Task<ActionResult<IEnumerable< ProductDto>>>GetAllProducts(int? BrandId,int? TypeId, ProductSortingOptions sortingoptions)
+        public async Task<ActionResult<IEnumerable< ProductDto>>>GetAllProducts([FromQuery]ProductQueryParam productQuery )
         {
 
-            var Products = await ServiceManger.ProductService.GetAllProductsAsync(BrandId, TypeId, sortingoptions);
+            var Products = await ServiceManger.ProductService.GetAllProductsAsync(productQuery);
 
             return Ok(Products);
         }
