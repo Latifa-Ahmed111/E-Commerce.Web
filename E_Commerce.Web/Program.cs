@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Presistance.Data;
 using Presistance.Reposatories;
 using Service;
+using ServiceAbstraction;
 
 namespace E_Commerce.Web
 {
@@ -29,8 +30,11 @@ namespace E_Commerce.Web
             builder.Services.AddScoped<IDbIntializer, DbIntializer>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddAutoMapper(typeof(AssiemblyRefrencres).Assembly);
-
+            builder.Services.AddScoped<ISevicesManger, ServicesMange>();
             #endregion
+
+
+
 
             var app = builder.Build();
 
