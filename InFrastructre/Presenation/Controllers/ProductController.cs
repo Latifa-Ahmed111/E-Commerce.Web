@@ -16,10 +16,10 @@ namespace Presenation.Controllers
         //GetallProduct 
         [HttpGet]
         //GetUrl/api/Products
-        public async Task<ActionResult<IEnumerable< ProductDto>>>GetAllProducts()
+        public async Task<ActionResult<IEnumerable< ProductDto>>>GetAllProducts(int? BrandId,int? TypeId)
         {
 
-            var Products = await ServiceManger.ProductService.GetAllProductsAsync();
+            var Products = await ServiceManger.ProductService.GetAllProductsAsync(BrandId, TypeId);
 
             return Ok(Products);
         }

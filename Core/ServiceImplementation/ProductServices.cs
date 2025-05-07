@@ -23,10 +23,10 @@ namespace Service
             return MapperBrands;
         }
 
-        public  async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
+        public  async Task<IEnumerable<ProductDto>> GetAllProductsAsync(int? BrandId ,int? TypeId)
         {
             var _Reposatory = unitOfWork.GetReposatory<Product, int>();
-            var spec = new ProductWithBrandandTypeSpesfication();
+            var spec = new ProductWithBrandandTypeSpesfication(BrandId, TypeId);
             var Products = await _Reposatory.GetAllAsync(spec);
             var MapperProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
 
@@ -44,7 +44,9 @@ namespace Service
 
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
-            var Product =  await unitOfWork.GetReposatory<Product, int>().GetByIdAsync(id);
+            var Spec = new ProductWithBrandandTypeSpesfication(id);
+
+            var Product =  await unitOfWork.GetReposatory<Product, int>().GetByIdAsync(Spec);
 
             return mapper.Map<Product,ProductDto>(Product);
         }
