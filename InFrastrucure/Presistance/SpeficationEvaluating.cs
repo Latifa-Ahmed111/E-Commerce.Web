@@ -38,7 +38,12 @@ namespace Presistance
                 Query = spec.includeExpression.Aggregate(Query,(currentQuerty,Exp)=> currentQuerty.Include(Exp));
 
             }
+            if(spec.IsPaginated==true)
+            {
 
+                Query = Query.Skip(spec.Skip).Take(spec.Take);
+
+            }
 
 
             return Query;

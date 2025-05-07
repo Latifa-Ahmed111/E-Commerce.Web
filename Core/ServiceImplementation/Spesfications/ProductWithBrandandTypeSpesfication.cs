@@ -43,6 +43,9 @@ namespace Service.Spesfications
                 default:
                     break;
             }
+
+
+            Applypagination(productQuery.PageSize, productQuery.PageIndex);
         }
 
         public ProductWithBrandandTypeSpesfication(int id) : base(p=>p.Id ==id)

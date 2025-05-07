@@ -9,9 +9,27 @@ namespace Shared
     public class ProductQueryParam
     {
 
+        private const int DefaultPageSize = 5;
+        private const int MaxmamPageSize = 10;
         public int? BrandId { get; set; }
         public int? TypeId { get; set; }
         public ProductSortingOptions SortingOptions { get; set; }
-        public string SearchValue { get; set; }
+        public string? SearchValue { get; set; }
+
+        public int PageIndex { get; set; } = 1;
+
+       // public int PageSize{ get; set; }
+
+        private int pageSize= MaxmamPageSize;
+
+        public int PageSize
+        {
+            get { return pageSize; }
+            set { PageSize = value>MaxmamPageSize?MaxmamPageSize:value; }
+        }
+
+
+
+
     }
 }
