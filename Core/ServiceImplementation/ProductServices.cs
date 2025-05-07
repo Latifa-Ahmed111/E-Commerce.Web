@@ -15,6 +15,22 @@ namespace Service
 {
     internal class ProductServices(IUnitOfWork unitOfWork,IMapper mapper) : IProductService
     {
+
+        public async Task<PaginatedResult<ProductDto>> GetAllProductsAsync(ProductQueryParam productQuery)
+        {
+            var _Reposatory = unitOfWork.GetReposatory<Product, int>();
+            var spec = new ProductWithBrandandTypeSpesfication(productQuery);
+            var Products = await _Reposatory.GetAllAsync(spec);
+            var MapperProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
+
+            var productcount = Products.Count();
+            return new PaginatedResult<ProductDto>(productQuery.PageIndex, productcount,0, MapperProducts);
+        }
+
+
+
+
+
         public async Task<IEnumerable<BrandDto>> GetAllBrandsAsync()
         {
             var _Reposatory = unitOfWork.GetReposatory<ProductBrand, int>();
@@ -24,15 +40,7 @@ namespace Service
             return MapperBrands;
         }
 
-        public  async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQueryParam productQuery)
-        {
-            var _Reposatory = unitOfWork.GetReposatory<Product, int>();
-            var spec = new ProductWithBrandandTypeSpesfication(productQuery);
-            var Products = await _Reposatory.GetAllAsync(spec);
-            var MapperProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
-
-            return MapperProducts;
-        }
+        
 
         public async Task<IEnumerable<TypeDto>> GetAllTypesAsync()
         {

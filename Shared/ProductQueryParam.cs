@@ -9,7 +9,7 @@ namespace Shared
     public class ProductQueryParam
     {
 
-        private const int DefaultPageSize = 5;
+        private const int DefaultPageSize = 2;
         private const int MaxmamPageSize = 10;
         public int? BrandId { get; set; }
         public int? TypeId { get; set; }
@@ -25,8 +25,9 @@ namespace Shared
         public int PageSize
         {
             get { return pageSize; }
-            set { PageSize = value>MaxmamPageSize?MaxmamPageSize:value; }
+            set { pageSize = value > MaxmamPageSize ? MaxmamPageSize : value; }
         }
+
 
 
 
