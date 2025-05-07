@@ -24,7 +24,10 @@ namespace Service
             var MapperProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(Products);
 
             var productcount = Products.Count();
-            return new PaginatedResult<ProductDto>(productQuery.PageIndex, productcount,0, MapperProducts);
+
+            var CountSpesfication = new ProuductCountSpesfication(productQuery);
+            var TotalCount = await _Reposatory.CountAsync(CountSpesfication);
+            return new PaginatedResult<ProductDto>(productQuery.PageIndex, productcount, TotalCount, MapperProducts);
         }
 
 
