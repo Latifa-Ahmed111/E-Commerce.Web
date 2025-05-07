@@ -14,7 +14,8 @@ namespace Service.Spesfications
     {
 
         public ProductWithBrandandTypeSpesfication(ProductQueryParam productQuery) :
-            base(p=>(!productQuery.BrandId.HasValue |p.BrandId== productQuery.BrandId) &&(!productQuery.TypeId.HasValue | p.TypeId == productQuery.TypeId))
+            base(p=>(!productQuery.BrandId.HasValue |p.BrandId== productQuery.BrandId) &&(!productQuery.TypeId.HasValue | p.TypeId == productQuery.TypeId)&&
+            (string.IsNullOrEmpty(productQuery.SearchValue)||p.Name.ToLower().Contains(productQuery.SearchValue.ToLower())))
         {
 
             AddInclude(p =>p.Brand);
