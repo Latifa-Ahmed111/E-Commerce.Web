@@ -1,5 +1,6 @@
 
 using DomainLayer.Contracts;
+using E_Commerce.Web.CustomMiddleWares;
 using Microsoft.EntityFrameworkCore;
 using Presistance.Data;
 using Presistance.Reposatories;
@@ -41,12 +42,13 @@ namespace E_Commerce.Web
             await intializeDbAsync(app);
 
             #region // Configure the HTTP request pipeline.
+            app.UseMiddleware<CustomExceptionMiddleWare>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
